@@ -26,12 +26,12 @@ module Uk
 
         raise Uk::HsCode::Error, "Request failed with status: #{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
 
-        JSON.parse(response.body)["data"]
+        JSON.parse(response.body, object_class: OpenStruct)&.data
       end
 
       private
 
-      def add_headers
+      def add_headers(request)
         request["User-Agent"] = "UK HS Code gem/#{Uk::HsCode::VERSION}"
         request["Accept"] = "application/json"
       end

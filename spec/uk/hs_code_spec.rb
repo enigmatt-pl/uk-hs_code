@@ -6,7 +6,7 @@ RSpec.describe Uk::HsCode do
   end
 
   describe "#search" do
-    let(:expected_search_result) { JSON.parse(File.read("spec/fixtures/expected_search_result.json")) }
+    let(:expected_search_result) { JSON.parse(File.read("spec/fixtures/expected_search_result.json"), object_class: OpenStruct) }
 
     context "when searching tables" do
       before { @response = described_class.search("table") }
