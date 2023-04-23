@@ -10,7 +10,7 @@ module Uk
     class Error < StandardError; end
 
     def self.search(query)
-      query = { query: { letter: query, total_count: 12 } }
+      query = { query: { letter: query } }
 
       ApiRequest.new("#{API_ENDPOINT}/v2/search_references.json", query).get
     end
