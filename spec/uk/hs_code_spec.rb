@@ -5,7 +5,20 @@ RSpec.describe Uk::HsCode do
     expect(Uk::HsCode::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  describe "#search" do
+    let(:expected_search_result) { JSON.parse(File.read('spec/fixtures/expected_search_result.json')) }
+
+    context "when searching tables" do
+      before { @response = described_class.search('table') }
+
+      it 'returns an array of search results' do
+        expect(@response).to be_a(Array)
+        expect(@response.size).to eq(expected_search_result.size)
+      end
+
+      it 'returns an expected array of hashes' do
+        expect(@response).to eq(expected_search_result)
+      end
+    end
   end
 end
