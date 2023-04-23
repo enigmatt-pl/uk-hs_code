@@ -17,24 +17,24 @@ module Uk
       def get
         request = Net::HTTP::Get.new(parsed_uri)
 
-        request["User-Agent"] = "UK HS Code gem/#{Uk::HsCode::VERSION}"
-        request["Accept"] = "application/json"
+        add_headers(request)
 
         http = Net::HTTP.new(parsed_uri.host, parsed_uri.port)
         http.use_ssl = true if parsed_uri.scheme == "https"
 
         response = http.request(request)
 
-        unless response.is_a?(Net::HTTPSuccess)
-          raise Uk::HsCode::Error, "Request failed with status: #{response.code} - #{response.message}"
-        end
+        raise Uk::HsCode::Error, "Request failed with status: #{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
 
-        parsed_response = JSON.parse(response.body)
-
-        parsed_response["data"]
+        JSON.parse(response.body)["data"]
       end
 
       private
+
+      def add_headers
+        request["User-Agent"] = "UK HS Code gem/#{Uk::HsCode::VERSION}"
+        request["Accept"] = "application/json"
+      end
 
       def parsed_uri
         @parsed_uri ||= URI.parse("#{url}?#{query_string}")

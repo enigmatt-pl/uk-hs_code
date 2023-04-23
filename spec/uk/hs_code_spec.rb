@@ -6,17 +6,17 @@ RSpec.describe Uk::HsCode do
   end
 
   describe "#search" do
-    let(:expected_search_result) { JSON.parse(File.read('spec/fixtures/expected_search_result.json')) }
+    let(:expected_search_result) { JSON.parse(File.read("spec/fixtures/expected_search_result.json")) }
 
     context "when searching tables" do
-      before { @response = described_class.search('table') }
+      before { @response = described_class.search("table") }
 
-      it 'returns an array of search results' do
+      it "returns an array of search results" do
         expect(@response).to be_a(Array)
         expect(@response.size).to eq(expected_search_result.size)
       end
 
-      it 'returns an expected array of hashes' do
+      it "returns an expected array of hashes" do
         expect(@response).to eq(expected_search_result)
       end
     end
