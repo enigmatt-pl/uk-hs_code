@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["Mateusz Michalski"]
   spec.email = ["enigmatt.priv@gmail.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = "Enables communication with Trade Tariff Public API V2."
+  spec.description = "Trade Tariff Public API V2 communicator."
+  spec.homepage = "https://github.com/enigmatt-pl/uk-hs_code"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
