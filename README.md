@@ -34,6 +34,8 @@ And:
 
 > refs = Uk::HsCode.search_hs_codes('carpet')
 
+> refs.inspect
+
  # => [#<Uk::HsCode::Record code="8451808000", title="carpet cleaning machines liquid injection">,
  #<Uk::HsCode::Record code="4008000000", title="carpet underlay, rubber">,
  #<Uk::HsCode::Record code="5402000000", title="carpet yarn, of man-made filaments">]
@@ -42,13 +44,13 @@ And:
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. To test with static code analyzer, run `rake rubocop`. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/uk-hs_code.
+Bug reports and pull requests are welcome on GitHub at https://github.com/enigmatt-pl/uk-hs_code.
 
 ## License
 
