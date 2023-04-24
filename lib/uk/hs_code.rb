@@ -9,10 +9,21 @@ module Uk
 
     class Error < StandardError; end
 
-    def self.search(query)
-      query = { query: { letter: query } }
+    class << self
+      def search(query)
+        search_references(query)
+      end
 
-      ApiRequest.new("#{API_ENDPOINT}/v2/search_references.json", query).get
+      def search_hs_codes(query)
+        result = search_references(query)
+        result.map { |a| OpenStruct.new(code: a.attributes.goods_nomenclature_item_id, title: a.attributes.title) }
+      end
+
+      private
+
+      def search_references(query)
+        ApiRequest.new("#{API_ENDPOINT}/v2/search_references.json", { query: { letter: query } }).get
+      end
     end
   end
 end
