@@ -2,6 +2,7 @@
 
 require_relative "hs_code/version"
 require_relative "hs_code/api_request"
+require_relative "hs_code/record"
 
 module Uk
   module HsCode
@@ -16,7 +17,7 @@ module Uk
 
       def search_hs_codes(query)
         result = search_references(query)
-        result.map { |a| OpenStruct.new(code: a.attributes.goods_nomenclature_item_id, title: a.attributes.title) }
+        result.map { |a| Record.new(code: a.attributes.goods_nomenclature_item_id, title: a.attributes.title) }
       end
 
       private

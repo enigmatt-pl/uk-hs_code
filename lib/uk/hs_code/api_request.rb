@@ -3,6 +3,7 @@
 require "net/http"
 require "uri"
 require "json"
+# require "record"
 
 module Uk
   module HsCode
@@ -26,7 +27,7 @@ module Uk
 
         raise Uk::HsCode::Error, "Request failed with status: #{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
 
-        JSON.parse(response.body, object_class: OpenStruct)&.data
+        JSON.parse(response.body, object_class: Record)&.data
       end
 
       private
