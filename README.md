@@ -1,24 +1,44 @@
 # Uk::HsCode
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/uk/hs_code`. To experiment with that code, run `bin/console` for an interactive prompt.
+uk-hs_code enables to dynamically search Harmonized Codes via UK Trade Tariff API, https://api.trade-tariff.service.gov.uk/#gov-uk-trade-tariff-api.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+The repository is here: https://github.com/enigmatt-pl/uk-hs_code.git
 
-Install the gem and add to the application's Gemfile by executing:
+Add to your Gemfile:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ gem 'uk-hs_code', git: 'https://github.com/enigmatt-pl/uk-hs_code.git'
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+And:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle install
+
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# Get all HS codes matching 'table' reference
+
+> refs = Uk::HsCode.search('table')
+
+> refs.inspect
+
+ # => [#<Uk::HsCode::Record id="6133", type="search_reference", attributes=#<Uk::HsCode::Record title="table, billiard and bagatelle", referenced_id="9504", referenced_class="Heading", goods_nomenclature_item_id="9504000000", productline_suffix="80", goods_nomenclature_sid=54540>>,
+ #<Uk::HsCode::Record id="11204", type="search_reference", attributes=#<Uk::HsCode::Record title="table cloths, knitted or crocheted", referenced_id="6302", referenced_class="Heading", goods_nomenclature_item_id="6302000000", productline_suffix="80", goods_nomenclature_sid=43645>>,
+ #<Uk::HsCode::Record id="11205", type="search_reference", attributes=#<Uk::HsCode::Record title="tablecloths, knitted or crocheted", referenced_id="6302", referenced_class="Heading", goods_nomenclature_item_id="6302000000", productline_suffix="80", goods_nomenclature_sid=43645>>,
+ #<Uk::HsCode::Record id="7289", type="search_reference", attributes=#<Uk::HsCode::Record title="tablecloths, of paper", referenced_id="4818300000-80", referenced_class="Commodity", goods_nomenclature_item_id="4818300000", productline_suffix="80", goods_nomenclature_sid=40686>>,
+ #<Uk::HsCode::Record id="11206", type="search_reference", attributes=#<Uk::HsCode::Record title="table cloths, other than knitted or crocheted", referenced_id="6302510000-10", referenced_class="Subheading", goods_nomenclature_item_id="6302510000", productline_suffix="10", goods_nomenclature_sid=43679>>
+
+# Get only HS codes with their titles matching 'carpet' reference
+
+> refs = Uk::HsCode.search_hs_codes('carpet')
+
+ # => [#<Uk::HsCode::Record code="8451808000", title="carpet cleaning machines liquid injection">,
+ #<Uk::HsCode::Record code="4008000000", title="carpet underlay, rubber">,
+ #<Uk::HsCode::Record code="5402000000", title="carpet yarn, of man-made filaments">]
+
+```
 
 ## Development
 
