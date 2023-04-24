@@ -8,7 +8,7 @@ The repository is here: https://github.com/enigmatt-pl/uk-hs_code.git
 
 Add to your Gemfile:
 
-    $ gem 'uk-hs_code', git: 'https://github.com/enigmatt-pl/uk-hs_code.git'
+    $ gem 'uk-hs_code'
 
 And:
 
