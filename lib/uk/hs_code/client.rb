@@ -7,26 +7,31 @@ require "json"
 module Uk
   module HsCode
     class Client
-      BASE_URL = "https://www.trade-tariff.service.gov.uk/api/v2"
-
-      def initialize(base_url: BASE_URL)
-        @base_url = base_url
+      def initialize(configuration: Uk::HsCode.configuration, base_url: nil)
+        @configuration = configuration
+        @base_url = base_url || @configuration.base_url
       end
 
       def get(path, params = {})
         uri = build_uri(path, params)
         request = Net::HTTP::Get.new(uri)
-        request["User-Agent"] = "UK HS Code gem/#{Uk::HsCode::VERSION}"
-        request["Accept"] = "application/json"
+        apply_headers(request)
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true if uri.scheme == "https"
+        http.open_timeout = @configuration.timeout
+        http.read_timeout = @configuration.timeout
 
         response = http.request(request)
         handle_response(response)
       end
 
       private
+
+      def apply_headers(request)
+        request["User-Agent"] = @configuration.user_agent
+        request["Accept"] = "application/json"
+      end
 
       def build_uri(path, params)
         full_url = "#{@base_url}#{path}"

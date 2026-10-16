@@ -39,7 +39,7 @@ RSpec.describe Uk::HsCode do
   end
 
   it "has a version number" do
-    expect(Uk::HsCode::VERSION).to eq("0.2.0")
+    expect(Uk::HsCode::VERSION).to eq("0.3.0")
   end
 
   describe "#search" do
