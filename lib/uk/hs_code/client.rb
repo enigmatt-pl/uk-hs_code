@@ -1,0 +1,48 @@
+# frozen_string_literal: true
+
+require "net/http"
+require "uri"
+require "json"
+
+module Uk
+  module HsCode
+    class Client
+      BASE_URL = "https://www.trade-tariff.service.gov.uk/api/v2"
+
+      def initialize(base_url: BASE_URL)
+        @base_url = base_url
+      end
+
+      def get(path, params = {})
+        uri = build_uri(path, params)
+        request = Net::HTTP::Get.new(uri)
+        request["User-Agent"] = "UK HS Code gem/#{Uk::HsCode::VERSION}"
+        request["Accept"] = "application/json"
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true if uri.scheme == "https"
+
+        response = http.request(request)
+        handle_response(response)
+      end
+
+      private
+
+      def build_uri(path, params)
+        full_url = "#{@base_url}#{path}"
+        uri = URI.parse(full_url)
+        if params && !params.empty?
+          query_str = URI.encode_www_form(params)
+          uri.query = uri.query ? "#{uri.query}&#{query_str}" : query_str
+        end
+        uri
+      end
+
+      def handle_response(response)
+        raise Uk::HsCode::Error, "Request failed with status: #{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
+
+        JSON.parse(response.body)
+      end
+    end
+  end
+end
