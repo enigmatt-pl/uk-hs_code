@@ -18,28 +18,26 @@ And:
 ## Usage
 
 ```ruby
-# Get all HS codes matching 'table' reference
+# Search HS codes matching free-text commodity description
+commodities = Uk::HsCode.search('cotton t-shirt')
 
-> refs = Uk::HsCode.search('table')
+commodities.first.code
+# => "6109100010"
 
-> refs.inspect
+commodities.first.title
+# => "T-shirts"
 
- # => [#<Uk::HsCode::Record id="6133", type="search_reference", attributes=#<Uk::HsCode::Record title="table, billiard and bagatelle", referenced_id="9504", referenced_class="Heading", goods_nomenclature_item_id="9504000000", productline_suffix="80", goods_nomenclature_sid=54540>>,
- #<Uk::HsCode::Record id="11204", type="search_reference", attributes=#<Uk::HsCode::Record title="table cloths, knitted or crocheted", referenced_id="6302", referenced_class="Heading", goods_nomenclature_item_id="6302000000", productline_suffix="80", goods_nomenclature_sid=43645>>,
- #<Uk::HsCode::Record id="11205", type="search_reference", attributes=#<Uk::HsCode::Record title="tablecloths, knitted or crocheted", referenced_id="6302", referenced_class="Heading", goods_nomenclature_item_id="6302000000", productline_suffix="80", goods_nomenclature_sid=43645>>,
- #<Uk::HsCode::Record id="7289", type="search_reference", attributes=#<Uk::HsCode::Record title="tablecloths, of paper", referenced_id="4818300000-80", referenced_class="Commodity", goods_nomenclature_item_id="4818300000", productline_suffix="80", goods_nomenclature_sid=40686>>,
- #<Uk::HsCode::Record id="11206", type="search_reference", attributes=#<Uk::HsCode::Record title="table cloths, other than knitted or crocheted", referenced_id="6302510000-10", referenced_class="Subheading", goods_nomenclature_item_id="6302510000", productline_suffix="10", goods_nomenclature_sid=43679>>
+commodities.first.declarable
+# => true
 
-# Get only HS codes with their titles matching 'carpet' reference
+# Get only HS codes with their titles
+records = Uk::HsCode.search_hs_codes('carpet')
 
-> refs = Uk::HsCode.search_hs_codes('carpet')
+records.first.code
+# => "8451808000"
 
-> refs.inspect
-
- # => [#<Uk::HsCode::Record code="8451808000", title="carpet cleaning machines liquid injection">,
- #<Uk::HsCode::Record code="4008000000", title="carpet underlay, rubber">,
- #<Uk::HsCode::Record code="5402000000", title="carpet yarn, of man-made filaments">]
-
+records.first.title
+# => "carpet cleaning machines liquid injection"
 ```
 
 ## Development

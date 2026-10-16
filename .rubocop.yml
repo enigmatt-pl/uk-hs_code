@@ -1,5 +1,7 @@
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
 
 Style/StringLiterals:
   Enabled: true
@@ -13,13 +15,28 @@ Style/Documentation:
   Enabled: false
 
 Layout/LineLength:
-  Max: 120
-
-Layout/LineLength:
   Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Gemspec/RequireMFA:
   Enabled: false
