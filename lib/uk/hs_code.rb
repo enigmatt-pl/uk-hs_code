@@ -10,6 +10,7 @@ require_relative "hs_code/record"
 require_relative "hs_code/client"
 require_relative "hs_code/parsers/search_response_parser"
 require_relative "hs_code/services/search_service"
+require_relative "hs_code/services/search_references_service"
 require_relative "hs_code/api_request"
 
 module Uk
@@ -40,7 +41,7 @@ module Uk
       end
 
       def search_references(query)
-        ApiRequest.new("#{configuration.base_url}/search_references.json", { query: { letter: query } }).get
+        Services::SearchReferencesService.call(query: query)
       end
     end
   end
