@@ -1,50 +1,92 @@
 # Uk::HsCode
 
-uk-hs_code enables to dynamically search Harmonized Codes via UK Trade Tariff API, https://api.trade-tariff.service.gov.uk/#gov-uk-trade-tariff-api.
+`uk-hs_code` enables communication with the UK Trade Tariff Public API v2 (https://www.trade-tariff.service.gov.uk/api/v2).
 
 ## Installation
 
-The repository is here: https://github.com/enigmatt-pl/uk-hs_code.git
-
 Add to your Gemfile:
 
-    $ gem 'uk-hs_code'
+```ruby
+gem 'uk-hs_code'
+```
 
-And:
+And run:
 
-    $ bundle install
+```bash
+bundle install
+```
 
+## Configuration
+
+Configure the gem during application startup (e.g., `config/initializers/uk_hs_code.rb`):
+
+```ruby
+Uk::HsCode.configure do |config|
+  # Target UK tariff (:uk, default) or Northern Ireland tariff (:xi)
+  config.service = :uk
+
+  # Optional: Network timeouts in seconds (default: 10)
+  config.timeout = 15
+end
+```
 
 ## Usage
 
-```ruby
-# Search HS codes matching free-text commodity description
-commodities = Uk::HsCode.search('cotton t-shirt')
+### Searching by Commodity Description
 
-commodities.first.code
+```ruby
+# Free-text commodity search
+result = Uk::HsCode.search('cotton t-shirt')
+
+# Result acts as an Enumerable Array of records
+result.first.code
 # => "6109100010"
 
-commodities.first.title
+result.first.title
 # => "T-shirts"
 
-commodities.first.declarable
+result.first.declarable
 # => true
 
-# Get only HS codes with their titles
-records = Uk::HsCode.search_hs_codes('carpet')
+# Structured access to categorized match groups
+result.commodities.each do |commodity|
+  puts "#{commodity.code}: #{commodity.description} (declarable: #{commodity.declarable})"
+end
+
+result.references.each do |reference|
+  puts "#{reference.code}: #{reference.title}"
+end
+```
+
+### Searching by Exact Commodity Code
+
+```ruby
+result = Uk::HsCode.search('6109100010')
+
+result.first.code
+# => "6109100010"
+
+result.first.type
+# => "exact"
+```
+
+### Search References (Alphabetical Index Terms)
+
+```ruby
+records = Uk::HsCode.search_references('table')
 
 records.first.code
-# => "8451808000"
+# => "9504000000"
 
 records.first.title
-# => "carpet cleaning machines liquid injection"
+# => "table, billiard and bagatelle"
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. To test with static code analyzer, run `rake rubocop`. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rake` to run tests and RuboCop. You can also run `bin/console` for an interactive prompt.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`.
 
 ## Contributing
 
