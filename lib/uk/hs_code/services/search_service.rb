@@ -27,7 +27,7 @@ module Uk
 
         def execute_workflow
           raw_response = @client.get("/search", { q: query })
-          Parsers::SearchResponseParser.call(raw_response)
+          Parsers::SearchResponseParser.call(raw_response, query: query)
         end
 
         def query

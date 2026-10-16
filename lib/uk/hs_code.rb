@@ -2,6 +2,10 @@
 
 require_relative "hs_code/version"
 require_relative "hs_code/configuration"
+require_relative "hs_code/entities/commodity"
+require_relative "hs_code/entities/search_reference"
+require_relative "hs_code/entities/exact_match"
+require_relative "hs_code/entities/search_result"
 require_relative "hs_code/record"
 require_relative "hs_code/client"
 require_relative "hs_code/parsers/search_response_parser"
